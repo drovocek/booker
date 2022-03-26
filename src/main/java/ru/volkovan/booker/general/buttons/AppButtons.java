@@ -6,11 +6,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import lombok.experimental.UtilityClass;
+import ru.volkovan.booker.general.buttons.styles.ButtonClass;
 import ru.volkovan.booker.general.entity.HasId;
-import ru.volkovan.booker.general.events.DeleteEvent;
-import ru.volkovan.booker.general.events.FilterEvent;
-import ru.volkovan.booker.general.events.SaveEvent;
-import ru.volkovan.booker.general.styles.ButtonClass;
+import ru.volkovan.booker.general.events.*;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -18,46 +16,74 @@ import java.util.function.Supplier;
 @UtilityClass
 public class AppButtons {
 
-    public static <T> Button filterButton(Supplier<Optional<T>> beanOptSupplier) {
-        Button filterButton = new Button("ok");
-        filterButton.setIcon(VaadinIcon.FILTER.create());
-        filterButton.addClickListener(clickEvent ->
-                beanOptSupplier.get().ifPresent(bean ->
-                        ComponentUtil.fireEvent(UI.getCurrent(),
-                                new FilterEvent<>(filterButton, bean))));
-        filterButton.addClassName(ButtonClass.FILTER_BUTTON.create());
-        filterButton.removeThemeVariants(ButtonVariant.MATERIAL_CONTAINED);
-        return filterButton;
-    }
-
-    public static <T> Button saveButton(Supplier<Optional<T>> beanOptSupplier) {
-        Button saveButton = new Button("Save");
-        saveButton.setIcon(VaadinIcon.DISC.create());
-        saveButton.addClickListener(clickEvent ->
-                beanOptSupplier.get().ifPresent(bean ->
-                        ComponentUtil.fireEvent(UI.getCurrent(),
-                                new SaveEvent<>(saveButton, bean))));
-        saveButton.addClassName(ButtonClass.SAVE_BUTTON.create());
-        saveButton.removeThemeVariants(ButtonVariant.LUMO_SUCCESS);
-        return saveButton;
-    }
-
-    public static <T extends HasId> Button deleteButton(Supplier<Optional<T>> beanOptSupplier) {
-        Button deleteButton = new Button("Delete");
-        deleteButton.setIcon(VaadinIcon.TRASH.create());
-        deleteButton.addClickListener(clickEvent ->
-                beanOptSupplier.get().ifPresent(bean ->
-                        ComponentUtil.fireEvent(UI.getCurrent(),
-                                new DeleteEvent<>(deleteButton, bean))));
-        deleteButton.addClassName(ButtonClass.DELETE_BUTTON.create());
-        return deleteButton;
-    }
-
     public static Button button(String text, VaadinIcon icon, Runnable onClick, ButtonVariant... buttonVariants) {
         Button button = new Button(text);
         button.setIcon(icon.create());
         button.addClickListener(clickEvent -> onClick.run());
-        button.removeThemeVariants(buttonVariants);
+        button.addThemeVariants(buttonVariants);
+        return button;
+    }
+
+    public static <T> Button filterButton(Supplier<Optional<T>> beanOptSupplier) {
+        Button button = new Button("ok");
+        button.setIcon(VaadinIcon.ROCKET.create());
+        button.addClickListener(clickEvent ->
+                beanOptSupplier.get().ifPresent(bean ->
+                        ComponentUtil.fireEvent(UI.getCurrent(),
+                                new FilterEvent<>(button, bean))));
+        button.addClassName(ButtonClass.FILTER_BUTTON.create());
+        button.addThemeVariants(ButtonVariant.MATERIAL_CONTAINED);
+        button.getElement().setAttribute("title", "Filter");
+        return button;
+    }
+
+    public static <T> Button saveButton(Supplier<Optional<T>> beanOptSupplier) {
+        Button button = new Button("Save");
+        button.setIcon(VaadinIcon.DISC.create());
+        button.addClickListener(clickEvent ->
+                beanOptSupplier.get().ifPresent(bean ->
+                        ComponentUtil.fireEvent(UI.getCurrent(),
+                                new SaveEvent<>(button, bean))));
+        button.addClassName(ButtonClass.SAVE_BUTTON.create());
+        button.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+        button.getElement().setAttribute("title", "Save");
+        return button;
+    }
+
+    public static <T extends HasId> Button deleteButton(Supplier<Optional<T>> beanOptSupplier) {
+        Button button = new Button("Delete");
+        button.setIcon(VaadinIcon.TRASH.create());
+        button.addClickListener(clickEvent ->
+                beanOptSupplier.get().ifPresent(bean ->
+                        ComponentUtil.fireEvent(UI.getCurrent(),
+                                new DeleteEvent<>(button, bean))));
+        button.addClassName(ButtonClass.DELETE_BUTTON.create());
+        button.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        button.getElement().setAttribute("title", "Delete");
+        return button;
+    }
+
+    public static Button switchFilterButton() {
+        Button button = new Button();
+        button.setIcon(VaadinIcon.FILTER.create());
+        button.addClickListener(clickEvent ->
+                ComponentUtil.fireEvent(UI.getCurrent(),
+                        new SwitchFilterClickEvent(button)));
+        button.addClassName(ButtonClass.SWITCH_FILTER_BUTTON.create());
+        button.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        button.getElement().setAttribute("title", "Filter");
+        return button;
+    }
+
+    public static Button switchEditButton() {
+        Button button = new Button();
+        button.setIcon(VaadinIcon.DATABASE.create());
+        button.addClickListener(clickEvent ->
+                ComponentUtil.fireEvent(UI.getCurrent(),
+                        new SwitchEditorClickEvent(button)));
+        button.addClassName(ButtonClass.SWITCH_EDIT_BUTTON.create());
+        button.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        button.getElement().setAttribute("title", "Edit");
         return button;
     }
 }

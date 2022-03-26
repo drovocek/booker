@@ -4,7 +4,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.volkovan.booker.general.GridView;
+import ru.volkovan.booker.general.view.GridView;
 import ru.volkovan.booker.general.fields.AppField;
 import ru.volkovan.booker.general.fields.AppFields;
 import ru.volkovan.booker.views.MainLayout;

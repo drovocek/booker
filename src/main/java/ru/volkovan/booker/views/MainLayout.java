@@ -9,6 +9,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
+import ru.volkovan.booker.general.buttons.AppButtons;
 import ru.volkovan.booker.views.about.AboutView;
 import ru.volkovan.booker.views.users.UsersView;
 
@@ -71,10 +72,14 @@ public class MainLayout extends AppLayout {
         toggle.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
-        viewTitle = new H1();
-        viewTitle.addClassNames("view-title");
+        this.viewTitle = new H1();
+        this.viewTitle.addClassNames("view-title");
 
-        Header header = new Header(toggle, viewTitle);
+        Header header = new Header(
+                toggle,
+                AppButtons.switchFilterButton(),
+                AppButtons.switchEditButton(),
+                viewTitle);
         header.addClassNames("view-header");
         return header;
     }

@@ -1,31 +1,37 @@
-package ru.volkovan.booker.general;
+package ru.volkovan.booker.general.view;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import ru.volkovan.booker.general.entity.HasId;
 import ru.volkovan.booker.general.fields.AppField;
-import ru.volkovan.booker.general.styles.GridViewClass;
+import ru.volkovan.booker.general.form.EditForm;
+import ru.volkovan.booker.general.form.FilterForm;
+import ru.volkovan.booker.general.view.styles.GridViewClass;
 
 import java.util.List;
 
 public abstract class GridView<T extends HasId, F> extends HorizontalLayout {
 
-    protected final FilterFormLayout<F> filterForm;
+    protected final FilterForm<F> filterForm;
     protected final Grid<T> grid;
-    protected final EditFormLayout<T> editForm;
+    protected final EditForm<T> editForm;
 
     public GridView() {
-        this.filterForm = new FilterFormLayout<>();
+        this.filterForm = new FilterForm<>();
         this.grid = new Grid<>(getGridBeanType());
-        this.editForm = new EditFormLayout<>();
+        this.editForm = new EditForm<>();
 
         configFilterForm();
         configEditForm();
 
-        addClassName(GridViewClass.GRID_VIEW.create());
+        Div leftBlock = new Div(this.filterForm, this.grid);
+        Div rightBlock = new Div(this.editForm);
+        add(leftBlock, rightBlock);
 
-        add(new VerticalLayout(this.filterForm, this.grid), this.editForm);
+        super.addClassName(GridViewClass.GRID_VIEW.create());
+        leftBlock.addClassName(GridViewClass.GRID_VIEW_LEFT_BLOCK.create());
+        rightBlock.addClassName(GridViewClass.GRID_VIEW_RIGHT_BLOCK.create());
 
         System.out.printf("<< create class %s >> %n", this.getClass().getSimpleName());
     }
