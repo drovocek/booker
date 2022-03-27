@@ -7,7 +7,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 import ru.volkovan.booker.general.view.GridView;
 import ru.volkovan.booker.general.fields.AppField;
 import ru.volkovan.booker.general.fields.AppFields;
-import ru.volkovan.booker.views.MainLayout;
+import ru.volkovan.booker.general.main.MainLayout;
 
 import java.util.List;
 

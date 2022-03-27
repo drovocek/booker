@@ -69,8 +69,12 @@ public class AppButtons {
         button.addClickListener(clickEvent ->
                 ComponentUtil.fireEvent(UI.getCurrent(),
                         new SwitchFilterClickEvent(button)));
-        button.addClassName(ButtonClass.SWITCH_FILTER_BUTTON.create());
-        button.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        button.addClassNames(
+                ButtonClass.HEADER_BUTTON.create(),
+                ButtonClass.SWITCH_FILTER_BUTTON.create());
+        button.addThemeVariants(
+                ButtonVariant.LUMO_LARGE,
+                ButtonVariant.LUMO_CONTRAST);
         button.getElement().setAttribute("title", "Filter");
         return button;
     }
@@ -81,8 +85,12 @@ public class AppButtons {
         button.addClickListener(clickEvent ->
                 ComponentUtil.fireEvent(UI.getCurrent(),
                         new SwitchEditorClickEvent(button)));
-        button.addClassName(ButtonClass.SWITCH_EDIT_BUTTON.create());
-        button.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        button.addClassNames(
+                ButtonClass.HEADER_BUTTON.create(),
+                ButtonClass.SWITCH_EDIT_BUTTON.create());
+        button.addThemeVariants(
+                ButtonVariant.LUMO_LARGE,
+                ButtonVariant.LUMO_CONTRAST);
         button.getElement().setAttribute("title", "Edit");
         return button;
     }

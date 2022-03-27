@@ -1,5 +1,5 @@
-@import url('./main-layout.css');
 @import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
+@import url('./././components/no-shadow-components/main-layout.css');
 @import url('./././components/no-shadow-components/app-form.css');
 @import url('./././components/no-shadow-components/grid-view.css');
 

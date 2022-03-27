@@ -8,6 +8,7 @@ public enum ButtonClass implements StyleFactory {
     SAVE_BUTTON,
     DELETE_BUTTON,
     CANCEL_BUTTON,
+    HEADER_BUTTON,
     SWITCH_FILTER_BUTTON,
     SWITCH_EDIT_BUTTON
 }

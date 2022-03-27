@@ -27,10 +27,7 @@ public class AppFormLayout<T> extends FormLayout {
 
     protected void config() {
         this.addClassName(AppFormClass.FORM_LAYOUT.create());
-        super.setResponsiveSteps(
-                new ResponsiveStep("0", 1),
-                new ResponsiveStep("320px", 2)
-        );
+
     }
 
     public void configure(Class<T> beanType, List<AppField> fields) {
@@ -40,7 +37,15 @@ public class AppFormLayout<T> extends FormLayout {
             this.binder.forField((HasValue) field).bind(field.getFieldName());
             super.add((Component) field);
         });
-        IntStream.range(1, fields.size() - 2)
+        setResponsiveSteps(fields.size());
+    }
+
+    private void setResponsiveSteps(int fieldsCount) {
+        super.setResponsiveSteps(
+                new ResponsiveStep("0", 1),
+                new ResponsiveStep("320px", 2)
+        );
+        IntStream.range(1, fieldsCount - 1)
                 .forEach(i -> super.setResponsiveSteps(
                         new ResponsiveStep(startResponsiveWidth + i * responsiveWidthStep + "px", i + 2)));
     }

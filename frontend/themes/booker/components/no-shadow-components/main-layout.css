@@ -55,8 +55,10 @@
 }
 
 .view-title {
-  margin: 0;
   font-size: var(--lumo-font-size-l);
+  margin-left: auto;
+  margin-right: auto;
+  text-transform: uppercase;
 }
 
 .view-header {

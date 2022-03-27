@@ -15,3 +15,12 @@
 :host([theme~="primary"]) {
   text-shadow: 0 -1px 0 var(--lumo-shade-20pct);
 }
+
+:host(.delete-button) {
+  float: right;
+}
+
+:host(.header-button) {
+  margin: 0 5px
+}
+

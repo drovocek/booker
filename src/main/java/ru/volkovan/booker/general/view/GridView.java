@@ -7,6 +7,7 @@ import ru.volkovan.booker.general.entity.HasId;
 import ru.volkovan.booker.general.fields.AppField;
 import ru.volkovan.booker.general.form.EditForm;
 import ru.volkovan.booker.general.form.FilterForm;
+import ru.volkovan.booker.general.grid.AppGridConfigurator;
 import ru.volkovan.booker.general.view.styles.GridViewClass;
 
 import java.util.List;
@@ -19,10 +20,11 @@ public abstract class GridView<T extends HasId, F> extends HorizontalLayout {
 
     public GridView() {
         this.filterForm = new FilterForm<>();
-        this.grid = new Grid<>(getGridBeanType());
+        this.grid = new Grid<>();
         this.editForm = new EditForm<>();
 
         configFilterForm();
+        configGrid();
         configEditForm();
 
         Div leftBlock = new Div(this.filterForm, this.grid);
@@ -34,6 +36,10 @@ public abstract class GridView<T extends HasId, F> extends HorizontalLayout {
         rightBlock.addClassName(GridViewClass.GRID_VIEW_RIGHT_BLOCK.create());
 
         System.out.printf("<< create class %s >> %n", this.getClass().getSimpleName());
+    }
+
+    protected void configGrid() {
+        AppGridConfigurator.configure(getGridBeanType(), this.grid);
     }
 
     protected void configFilterForm() {

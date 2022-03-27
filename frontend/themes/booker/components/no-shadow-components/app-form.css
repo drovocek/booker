@@ -1,9 +1,14 @@
 
 .app-form {
     padding: 10px;
+    width: fit-content;
 }
 
 .edit-form {
     width: 25em;
     padding: 10px;
+}
+
+.filter-form {
+
 }

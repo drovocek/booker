@@ -1,4 +1,4 @@
-package ru.volkovan.booker.views;
+package ru.volkovan.booker.general.main;
 
 
 import com.vaadin.flow.component.Component;
@@ -10,6 +10,7 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import ru.volkovan.booker.general.buttons.AppButtons;
+import ru.volkovan.booker.general.main.styles.MainViewClass;
 import ru.volkovan.booker.views.about.AboutView;
 import ru.volkovan.booker.views.users.UsersView;
 
@@ -28,14 +29,16 @@ public class MainLayout extends AppLayout {
         public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
             this.view = view;
             RouterLink link = new RouterLink();
-            link.addClassNames("menu-item-link");
+
             link.setRoute(view);
 
             Span text = new Span(menuTitle);
-            text.addClassNames("menu-item-text");
 
             link.add(new LineAwesomeIcon(iconClass), text);
             add(link);
+
+            link.addClassNames(MainViewClass.MENU_ITEM_LINK.create());
+            text.addClassNames(MainViewClass.MENU_ITEM_TEXT.create());
         }
 
         public Class<?> getView() {
@@ -55,7 +58,6 @@ public class MainLayout extends AppLayout {
                 }
             }
         }
-
     }
 
     private H1 viewTitle;
@@ -73,14 +75,14 @@ public class MainLayout extends AppLayout {
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
         this.viewTitle = new H1();
-        this.viewTitle.addClassNames("view-title");
+        this.viewTitle.addClassNames(MainViewClass.VIEW_TITLE.create());
 
         Header header = new Header(
                 toggle,
                 AppButtons.switchFilterButton(),
                 AppButtons.switchEditButton(),
                 viewTitle);
-        header.addClassNames("view-header");
+        header.addClassNames(MainViewClass.VIEW_HEADER.create());
         return header;
     }
 
@@ -90,24 +92,24 @@ public class MainLayout extends AppLayout {
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
                 createNavigation(), createFooter());
-        section.addClassNames("drawer-section");
+        section.addClassNames(MainViewClass.DRAWER_SECTION.create());
         return section;
     }
 
     private Nav createNavigation() {
         Nav nav = new Nav();
-        nav.addClassNames("menu-item-container");
         nav.getElement().setAttribute("aria-labelledby", "views");
 
-        // Wrap the links in a list; improves accessibility
         UnorderedList list = new UnorderedList();
-        list.addClassNames("navigation-list");
         nav.add(list);
 
         for (MenuItemInfo menuItem : createMenuItems()) {
             list.add(menuItem);
 
         }
+
+        nav.addClassNames(MainViewClass.MENU_ITEM_CONTAINER.create());
+        list.addClassNames(MainViewClass.NAVIGATION_LIST.create());
         return nav;
     }
 
@@ -120,7 +122,7 @@ public class MainLayout extends AppLayout {
 
     private Footer createFooter() {
         Footer layout = new Footer();
-        layout.addClassNames("footer");
+        layout.addClassNames(MainViewClass.FOOTER.create());
 
         return layout;
     }

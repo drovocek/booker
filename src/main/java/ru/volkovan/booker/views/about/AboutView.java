@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.volkovan.booker.views.MainLayout;
+import ru.volkovan.booker.general.main.MainLayout;
 
 @UIScope
 @SpringComponent
