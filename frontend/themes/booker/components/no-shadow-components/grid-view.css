@@ -2,17 +2,17 @@
 .grid-view {
     width: 100%;
     height: 100%;
-    background: greenyellow;
+    /*background: greenyellow;*/
     padding: 10px;
 }
 
 .grid-view-left-block {
     width: 100%;
-    background: aquamarine;
+    /*background: aquamarine;*/
 }
 
 .grid-view-right-block {
-    background: red;
+    /*background: red;*/
 }
 
 .grid-view vaadin-grid {

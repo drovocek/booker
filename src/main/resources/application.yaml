@@ -1,0 +1,39 @@
+
+server:
+  port: ${PORT:8080}
+
+spring:
+  mustache:
+    check-template-location: false
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+vaadin:
+  launch-browser: true
+  pnpm:
+    enable: false
+#  whitelisted-packages:
+#      - com.vaadin
+#      - org.vaadin
+#      - dev.hilla
+#      - ru.volkovan.booker
+
+#logging:
+#  level: ororg.atmosphere=warn
+
+

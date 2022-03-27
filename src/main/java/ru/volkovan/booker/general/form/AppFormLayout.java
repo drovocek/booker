@@ -5,6 +5,7 @@ import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import lombok.Getter;
 import ru.volkovan.booker.general.fields.AppField;
 import ru.volkovan.booker.general.form.styles.AppFormClass;
 import ru.volkovan.booker.general.util.AppReflectionUtil;
@@ -17,6 +18,8 @@ public class AppFormLayout<T> extends FormLayout {
 
     protected Class<T> beanType;
     protected Binder<T> binder;
+    @Getter
+    private T beanSource;
 
     protected int responsiveWidthStep = 180;
     protected int startResponsiveWidth = 360;
@@ -27,7 +30,6 @@ public class AppFormLayout<T> extends FormLayout {
 
     protected void config() {
         this.addClassName(AppFormClass.FORM_LAYOUT.create());
-
     }
 
     public void configure(Class<T> beanType, List<AppField> fields) {
@@ -38,6 +40,7 @@ public class AppFormLayout<T> extends FormLayout {
             super.add((Component) field);
         });
         setResponsiveSteps(fields.size());
+        readBean(null);
     }
 
     private void setResponsiveSteps(int fieldsCount) {
@@ -54,14 +57,18 @@ public class AppFormLayout<T> extends FormLayout {
         return this.binder.isValid();
     }
 
+    public void readBean(T bean) {
+        this.beanSource = bean != null ? bean : AppReflectionUtil.getInstance(this.beanType);
+        this.binder.readBean(this.beanSource);
+    }
+
     public void clear() {
         this.binder.readBean(AppReflectionUtil.getInstance(this.beanType));
     }
 
     public Optional<T> getValidBean() {
-        T instance = AppReflectionUtil.getInstance(this.beanType);
-        if (this.binder.writeBeanIfValid(instance)) {
-            return Optional.of(instance);
+        if (this.binder.writeBeanIfValid(this.beanSource)) {
+            return Optional.of(this.beanSource);
         }
         return Optional.empty();
     }

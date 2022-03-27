@@ -1,4 +1,4 @@
-package ru.volkovan.booker.general.entity;
+package ru.volkovan.booker.general.data;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

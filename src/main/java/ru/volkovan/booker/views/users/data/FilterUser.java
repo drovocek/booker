@@ -1,4 +1,4 @@
-package ru.volkovan.booker.views.users;
+package ru.volkovan.booker.views.users.data;
 
 import lombok.Getter;
 import lombok.Setter;

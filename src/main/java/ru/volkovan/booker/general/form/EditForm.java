@@ -5,18 +5,20 @@ import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.shared.Registration;
 import ru.volkovan.booker.general.buttons.AppButtons;
-import ru.volkovan.booker.general.entity.HasId;
+import ru.volkovan.booker.general.data.HasId;
+import ru.volkovan.booker.general.events.SelectNotifier;
 import ru.volkovan.booker.general.events.SwitchEditorClickNotifier;
 import ru.volkovan.booker.general.form.styles.AppFormClass;
 
 import java.util.Optional;
 
-public class EditForm<T extends HasId> extends AppForm<T> implements SwitchEditorClickNotifier {
+public class EditForm<T extends HasId> extends AppForm<T>
+        implements SwitchEditorClickNotifier, SelectNotifier<T> {
 
     private Button deleteButton;
-    private T beanSource;
 
     private Registration switchEditorClickRegistration;
+    private Registration selectRegistration;
 
     public EditForm() {
         super.setTitle("Save");
@@ -27,25 +29,27 @@ public class EditForm<T extends HasId> extends AppForm<T> implements SwitchEdito
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
         this.switchEditorClickRegistration = addUISwitchEditorClickListener(switchEvent -> switchVisible());
+        this.selectRegistration = addUISelectListener(selectEvent -> readBean(selectEvent.getSelected()));
     }
 
     @Override
     protected void onDetach(DetachEvent detachEvent) {
         super.onDetach(detachEvent);
         this.switchEditorClickRegistration.remove();
+        this.selectRegistration.remove();
     }
 
     @Override
     public void readBean(T bean) {
         super.readBean(bean);
-        this.beanSource = bean;
-        super.setTitle(bean.isNew() ? "Create" : "Edit");
-        this.deleteButton.setVisible(!bean.isNew());
+        super.setTitle(bean == null ? "Create" : "Edit");
+        this.deleteButton.setVisible(bean != null);
     }
 
     @Override
     protected Button[] getActionButtons() {
-        this.deleteButton = AppButtons.deleteButton(() -> Optional.ofNullable(this.beanSource));
+        this.deleteButton = AppButtons.deleteButton(
+                () -> Optional.ofNullable(this.formLayout.getBeanSource()));
         return new Button[]{
                 AppButtons.saveButton(formLayout::getValidBean),
                 this.deleteButton

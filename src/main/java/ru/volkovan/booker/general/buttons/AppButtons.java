@@ -7,7 +7,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import lombok.experimental.UtilityClass;
 import ru.volkovan.booker.general.buttons.styles.ButtonClass;
-import ru.volkovan.booker.general.entity.HasId;
+import ru.volkovan.booker.general.data.HasId;
 import ru.volkovan.booker.general.events.*;
 
 import java.util.Optional;

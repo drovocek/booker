@@ -39,7 +39,7 @@ public abstract class AppForm<T> extends Div {
     }
 
     public void readBean(T bean) {
-        this.formLayout.binder.readBean(bean);
+        this.formLayout.readBean(bean);
     }
 
     public void configure(Class<T> beanType, List<AppField> fields) {
